@@ -1,1 +1,28 @@
-<p>note-form works!</p>
+<div class="note">
+  <h4 class="note__title"> New Note </h4>
+  <form class="note__form" [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Label</mat-label>
+      <input
+        formControlName="text"
+        matInput
+        placeholder="enter"
+        type="text"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Label</mat-label>
+      <input
+        formControlName="tags"
+        matInput
+        placeholder="enter"
+        type="text"
+      />
+    </mat-form-field>
+    <div class="form-group">
+      <button type="submit" mat-button>
+        submit
+      </button>
+    </div>
+  </form>
+</div>

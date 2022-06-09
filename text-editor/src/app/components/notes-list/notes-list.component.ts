@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NoteService } from 'src/app/services/note.service';
 
 @Component({
   selector: 'app-notes-list',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotesListComponent implements OnInit {
 
-  constructor() { }
+  constructor(public service: NoteService) { }
 
   ngOnInit(): void {
+    this.service.get('notes');
   }
 
 }
