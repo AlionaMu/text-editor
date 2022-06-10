@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { StorageService } from './storage.service';
 import { Note } from './../models/note.model';
 
 @Injectable({
@@ -6,16 +7,13 @@ import { Note } from './../models/note.model';
 })
 export class NoteService {
 
-  constructor() {}
+  constructor(public storageService: StorageService) {}
 
-  public get(item: string): any {
-    const storage = localStorage.getItem(item);
-    if (storage && storage.length !== 0) {
-      return JSON.parse(storage);
-    }
+  public get(): Note[] {
+    return this.storageService.get();
   }
 
-  public set(key: string, value: string): any {
-    localStorage.setItem(key, JSON.stringify(value));
+  public set(text: string): void {
+    this.storageService.set(text);
   }
 }

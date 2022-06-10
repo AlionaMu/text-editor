@@ -16,11 +16,10 @@ import { NoteService } from 'src/app/services/note.service';
 export class NoteFormComponent implements OnInit {
   public noteForm: FormGroup = {} as FormGroup;
 
-  public constructor(
+  public constructor (
     private formBuilder: FormBuilder,
-    public service: NoteService
-  ) {
-   }
+    public noteService: NoteService
+  ) {}
 
   public ngOnInit(): void {
     this.initNoteForm();
@@ -29,14 +28,14 @@ export class NoteFormComponent implements OnInit {
   public onSubmit(): void {
     const text: string = this.noteForm.get('text')?.value;
     const tags: string = this.noteForm.get('tags')?.value;
-    this.service.set(text, tags);
+
+    this.noteService.set(text);
   }
 
   private initNoteForm(): void {
-    console.log('hh')
     this.noteForm = this.formBuilder.group({
-      text: new FormControl('enter text'),
-      tags: new FormControl('enter tags'),
+      text: new FormControl(''),
+      tags: new FormControl(''),
     });
   }
 

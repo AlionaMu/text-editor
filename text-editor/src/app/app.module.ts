@@ -12,6 +12,7 @@ import { NoteFormComponent } from './components/note-form/note-form.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { NoteCardComponent } from './components/note-card/note-card.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { MatInputModule } from '@angular/material/input';
     HeaderComponent,
     TagsListComponent,
     NotesListComponent,
-    NoteFormComponent
+    NoteFormComponent,
+    NoteCardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,11 @@
-export interface Note {
+export class Note {
+  id: string;
   text: string;
-  tags: Tag[];
-}
+  //tags: string[];
 
-export interface Tag {
-  title: string;
+  constructor(id: string, text: string/*, tags: string[]*/) {
+    this.id = id;
+    this.text = text;
+    //this.tags = tags;
+  }
 }
