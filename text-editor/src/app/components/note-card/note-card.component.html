@@ -1,1 +1,18 @@
-<p>note-card works!</p>
+<div class="note-card">
+  <div *ngIf="!isEditMode" class="note-card__title">
+    {{ note.text }}
+  </div>
+  <input
+  autofocus
+  *ngIf="isEditMode"
+  matInput
+  type="text"
+  [(ngModel)]="note.text"
+  />
+  <button mat-button (click)="switchClick()">
+    {{ buttonTitle }}
+  </button>
+  <button mat-button (click)="deleteNote(note.id)">
+    delete
+  </button>
+</div>

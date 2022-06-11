@@ -15,9 +15,19 @@ export class StorageService {
   }
 
   public set(text: string): void {
-      const data = this.get()
+      const data = this.get();
       const newNote: Note = new Note(data.length.toString(), text)
       data.push(newNote);
       localStorage.setItem('notes', JSON.stringify(data));
+  }
+
+  public editNote(text: string, id: string)  {
+    const data = this.get();
+  }
+
+  public deleteNote(id: string)  {
+    const data = this.get();
+    const res = data.filter(item => item.id !== id);
+    console.log(res)
   }
 }

@@ -12,7 +12,7 @@ export class NotesListComponent implements OnInit {
   constructor(public noteService: NoteService) { }
 
   ngOnInit(): void {
-    const data = this.notes;
-    console.log(data)
+    //this.notes = notes;
+   // console.log(data)
   }
 }
