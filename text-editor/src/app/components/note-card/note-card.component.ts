@@ -21,22 +21,24 @@ export class NoteCardComponent implements OnInit {
   constructor(
     public noteService: NoteService,
     public storageService: StorageService
-    ) { }
+  ) { }
 
   public ngOnInit(): void {
-  }
+    }
 
-  public switchClick(): void {
+  public switchClick(id: string, text: string): void {
     this.isEditMode = !this.isEditMode;
     if (this.buttonTitle === buttonTitle.Edit) {
       this.buttonTitle = buttonTitle.Save;
-      this.noteService.set
+
     } else {
-      this.buttonTitle = buttonTitle.Edit
+      this.buttonTitle = buttonTitle.Edit;
+      this.storageService.editNote(text, id);
     }
   }
 
   public deleteNote(id: string) {
     this.storageService.deleteNote(id);
+    this.noteService.get();
   }
 }

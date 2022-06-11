@@ -5,7 +5,6 @@ import {
   FormControl,
   FormBuilder,
 } from '@angular/forms';
-//import { Note } from './../../models/note.model';
 import { NoteService } from 'src/app/services/note.service';
 
 @Component({

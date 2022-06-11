@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NoteService } from 'src/app/services/note.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { Note } from './../../models/note.model';
 
 @Component({
@@ -8,11 +9,14 @@ import { Note } from './../../models/note.model';
   styleUrls: ['./notes-list.component.scss']
 })
 export class NotesListComponent implements OnInit {
-  public notes: Note[] = this.noteService.get();
-  constructor(public noteService: NoteService) { }
+  public data: Note[] = this.noteService.get();
+  public notes = this.data;
+
+  constructor(public storageService: StorageService, public noteService: NoteService) { }
 
   ngOnInit(): void {
-    //this.notes = notes;
-   // console.log(data)
+    this.storageService.data$.subscribe((data: any) => {
+      this.notes = data;
+    })
   }
 }

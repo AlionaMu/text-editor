@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Note } from './../models/note.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
   public notes: Note[] = [];
+  public data$: BehaviorSubject<any> = new BehaviorSubject(this.get());
 
   constructor() {}
 
@@ -19,15 +21,23 @@ export class StorageService {
       const newNote: Note = new Note(data.length.toString(), text)
       data.push(newNote);
       localStorage.setItem('notes', JSON.stringify(data));
+      this.data$.next(this.get());
   }
 
   public editNote(text: string, id: string)  {
     const data = this.get();
+    const index = data.findIndex((item: Note) => item.id === id);
+    data[index].text = text;
+    localStorage.clear();
+    localStorage.setItem('notes', JSON.stringify(data));
+    this.data$.next(this.get());
   }
 
-  public deleteNote(id: string)  {
+  public deleteNote(id: string): void  {
     const data = this.get();
-    const res = data.filter(item => item.id !== id);
-    console.log(res)
+    const res = data.filter((item: { id: string; }) => item.id !== id);
+    localStorage.clear();
+    localStorage.setItem('notes', JSON.stringify(res));
+    this.data$.next(this.get());
   }
 }

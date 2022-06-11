@@ -3,13 +3,12 @@
     {{ note.text }}
   </div>
   <input
-  autofocus
   *ngIf="isEditMode"
   matInput
   type="text"
   [(ngModel)]="note.text"
   />
-  <button mat-button (click)="switchClick()">
+  <button mat-button (click)="switchClick(note.id, note.text)">
     {{ buttonTitle }}
   </button>
   <button mat-button (click)="deleteNote(note.id)">
