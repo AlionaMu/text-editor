@@ -2,18 +2,9 @@
   <h4 class="note__title"> New Note </h4>
   <form class="note__form" [formGroup]="noteForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
-      <mat-label>Label</mat-label>
+      <mat-label>Note</mat-label>
       <input
         formControlName="text"
-        matInput
-        placeholder="enter"
-        type="text"
-      />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Label</mat-label>
-      <input
-        formControlName="tags"
         matInput
         placeholder="enter"
         type="text"
@@ -24,5 +15,21 @@
         submit
       </button>
     </div>
+    <mat-form-field class="note__chip-list" appearance="fill">
+      <mat-label>Tags</mat-label>
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip *ngFor="let fruit of fruits" (removed)="remove(fruit)">
+          {{fruit.name}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+        <input placeholder="New tag..."
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+    </mat-form-field>
   </form>
 </div>

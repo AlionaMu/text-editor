@@ -9,11 +9,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { TagsListComponent } from './components/tags-list/tags-list.component';
 import { NotesListComponent } from './components/notes-list/notes-list.component';
 import { NoteFormComponent } from './components/note-form/note-form.component';
+import { NoteCardComponent } from './components/note-card/note-card.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { NoteCardComponent } from './components/note-card/note-card.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { NoteCardComponent } from './components/note-card/note-card.component';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatChipsModule,
+    MatIconModule,
     ReactiveFormsModule,
     FormsModule
   ],

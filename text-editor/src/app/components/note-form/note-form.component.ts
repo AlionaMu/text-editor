@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatChipInputEvent} from '@angular/material/chips';
+
+export interface Fruit {
+  name: string;
+}
+
 import {
   FormGroup,
   FormControl,
@@ -14,6 +21,10 @@ import { NoteService } from 'src/app/services/note.service';
 })
 export class NoteFormComponent implements OnInit {
   public noteForm: FormGroup = {} as FormGroup;
+
+  public addOnBlur = true;
+  public readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  public fruits: Fruit[] = [{name: 'Lemon'}, {name: 'Lime'}, {name: 'Apple'}];
 
   public constructor (
     private formBuilder: FormBuilder,
@@ -36,6 +47,26 @@ export class NoteFormComponent implements OnInit {
       text: new FormControl(''),
       tags: new FormControl(''),
     });
+  }
+
+  public add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our fruit
+    if (value) {
+      this.fruits.push({name: value});
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+
+  public remove(fruit: Fruit): void {
+    const index = this.fruits.indexOf(fruit);
+
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
+    }
   }
 
 }
