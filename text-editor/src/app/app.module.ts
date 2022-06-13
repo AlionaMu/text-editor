@@ -16,6 +16,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { FilteredPipe } from './pipe/filtered.pipe';
+import { ColoredTagDirective } from './directives/coloredTag.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { MatIconModule } from '@angular/material/icon';
     TagsListComponent,
     NotesListComponent,
     NoteFormComponent,
-    NoteCardComponent
+    NoteCardComponent,
+    FilteredPipe,
+    ColoredTagDirective
   ],
   imports: [
     BrowserModule,

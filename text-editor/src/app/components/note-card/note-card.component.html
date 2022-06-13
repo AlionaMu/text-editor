@@ -7,6 +7,8 @@
   matInput
   type="text"
   [(ngModel)]="note.text"
+  [coloredTag]="note.text"
+  #input
   />
   <div class="note-card__tag-list">
     <mat-chip *ngFor="let tag of note.tags" class="note-card__tag">

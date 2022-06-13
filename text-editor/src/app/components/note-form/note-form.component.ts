@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { NoteService } from 'src/app/services/note.service';
 import { TagsStorageService } from 'src/app/services/tags-storage.service';
+import { FindHashService } from 'src/app/services/find-hash.service';
 
 @Component({
   selector: 'app-note-form',
@@ -27,7 +28,8 @@ export class NoteFormComponent implements OnInit {
   public constructor (
     private formBuilder: FormBuilder,
     public noteService: NoteService,
-    public tagsStorageService: TagsStorageService
+    public tagsStorageService: TagsStorageService,
+    public findHashService: FindHashService
   ) {}
 
   public ngOnInit(): void {
@@ -38,6 +40,7 @@ export class NoteFormComponent implements OnInit {
     const text: string = this.noteForm.get('text')?.value;
     this.noteService.set(text, this.findHash(text));
     this.tagsStorageService.allTagsList$.next(this.tagsStorageService.getAllTags());
+    this.noteForm.reset();
   }
 
   private initNoteForm(): void {
@@ -48,25 +51,6 @@ export class NoteFormComponent implements OnInit {
   }
 
   private findHash(text: string): Tag[] {
-    let tagsArr = [];
-    let regexp = new RegExp('#([^\\s]*)', 'g');
-    let tmplist = text.match(regexp);
-    for (let w in tmplist) {
-      let hashSub = tmplist[+w].split('#');
-      for (let x in hashSub) {
-        if (hashSub[x] != "")
-        {
-          if (hashSub[x].substr(hashSub[x].length - 1) == ":")
-          {
-            hashSub[x] = hashSub[x].slice(0, -1);
-          }
-          if (hashSub[x] != "") {
-            let resultWord: string = `${hashSub[x]}`;
-            tagsArr.push(new Tag(resultWord));
-          }
-        }
-      }
-    }
-    return tagsArr;
+    return this.findHashService.findByHash(text);
   }
 }

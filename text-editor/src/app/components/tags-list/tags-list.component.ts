@@ -13,8 +13,11 @@ export class TagsListComponent implements OnInit {
   public addOnBlur = true;
   public readonly separatorKeysCodes = [ENTER, COMMA] as const;
   public tags: Tag[] = [];
+  public isFiltered: boolean = false;
 
-  constructor(private tagsStorageService: TagsStorageService) { }
+  constructor(
+    private tagsStorageService: TagsStorageService,
+  ) { }
 
   ngOnInit(): void {
     this.tagsStorageService.allTagsList$.subscribe((data: any) => {
@@ -35,5 +38,16 @@ export class TagsListComponent implements OnInit {
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
+    this.tagsStorageService.deleteTagFromStorage(tag.name);
+  }
+
+  public addFiltering(tag: Tag): void {
+    this.tagsStorageService.tagName = tag.name;
+    this.isFiltered = true;
+  }
+
+  public cancelFilters() {
+    this.isFiltered = false;
+    this.tagsStorageService.tagName = '';
   }
 }

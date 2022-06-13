@@ -9,7 +9,7 @@ import { TagsStorageService } from './tags-storage.service';
 })
 export class NoteService {
 
-  constructor(public storageService: StorageService, public tagsStotageService: TagsStorageService) {}
+  constructor(public storageService: StorageService, public tagsStorageService: TagsStorageService) {}
 
   public get(): Note[] {
     return this.storageService.get();
@@ -17,6 +17,6 @@ export class NoteService {
 
   public set(text: string, tags: Tag[]): void {
     this.storageService.set(text, tags);
-    this.tagsStotageService.setNewTagToStorage(tags);
+    this.tagsStorageService.setNewTagToStorage(tags);
   }
 }
