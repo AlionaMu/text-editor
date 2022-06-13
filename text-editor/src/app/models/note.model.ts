@@ -1,11 +1,13 @@
+import { Tag } from "./tag.model";
+
 export class Note {
   id: string;
   text: string;
-  //tags: string[];
+  tags: Tag[];
 
-  constructor(id: string, text: string/*, tags: string[]*/) {
+  constructor(id: string, text: string, tags: Tag[]) {
     this.id = id;
     this.text = text;
-    //this.tags = tags;
+    this.tags = tags;
   }
 }

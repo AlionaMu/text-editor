@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Tag } from './../../models/tag.model';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
-
-export interface Fruit {
-  name: string;
-}
+import { StorageService } from 'src/app/services/storage.service';
 
 import {
   FormGroup,
@@ -13,6 +10,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { NoteService } from 'src/app/services/note.service';
+import { TagsStorageService } from 'src/app/services/tags-storage.service';
 
 @Component({
   selector: 'app-note-form',
@@ -24,11 +22,12 @@ export class NoteFormComponent implements OnInit {
 
   public addOnBlur = true;
   public readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  public fruits: Fruit[] = [{name: 'Lemon'}, {name: 'Lime'}, {name: 'Apple'}];
+  public tags: Tag[] = this.tagsStorageService.getAllTags();
 
   public constructor (
     private formBuilder: FormBuilder,
-    public noteService: NoteService
+    public noteService: NoteService,
+    public tagsStorageService: TagsStorageService
   ) {}
 
   public ngOnInit(): void {
@@ -37,9 +36,8 @@ export class NoteFormComponent implements OnInit {
 
   public onSubmit(): void {
     const text: string = this.noteForm.get('text')?.value;
-    const tags: string = this.noteForm.get('tags')?.value;
-
-    this.noteService.set(text);
+    this.noteService.set(text, this.findHash(text));
+    this.tagsStorageService.allTagsList$.next(this.tagsStorageService.getAllTags());
   }
 
   private initNoteForm(): void {
@@ -49,24 +47,26 @@ export class NoteFormComponent implements OnInit {
     });
   }
 
-  public add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    // Add our fruit
-    if (value) {
-      this.fruits.push({name: value});
+  private findHash(text: string): Tag[] {
+    let tagsArr = [];
+    let regexp = new RegExp('#([^\\s]*)', 'g');
+    let tmplist = text.match(regexp);
+    for (let w in tmplist) {
+      let hashSub = tmplist[+w].split('#');
+      for (let x in hashSub) {
+        if (hashSub[x] != "")
+        {
+          if (hashSub[x].substr(hashSub[x].length - 1) == ":")
+          {
+            hashSub[x] = hashSub[x].slice(0, -1);
+          }
+          if (hashSub[x] != "") {
+            let resultWord: string = `${hashSub[x]}`;
+            tagsArr.push(new Tag(resultWord));
+          }
+        }
+      }
     }
-
-    // Clear the input value
-    event.chipInput!.clear();
+    return tagsArr;
   }
-
-  public remove(fruit: Fruit): void {
-    const index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
-    }
-  }
-
 }

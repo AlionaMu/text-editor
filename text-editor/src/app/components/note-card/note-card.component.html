@@ -8,6 +8,11 @@
   type="text"
   [(ngModel)]="note.text"
   />
+  <div class="note-card__tag-list">
+    <mat-chip *ngFor="let tag of note.tags" class="note-card__tag">
+      {{tag.name}}
+    </mat-chip>
+  </div>
   <button mat-button (click)="switchClick(note.id, note.text)">
     {{ buttonTitle }}
   </button>

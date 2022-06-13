@@ -15,21 +15,5 @@
         submit
       </button>
     </div>
-    <mat-form-field class="note__chip-list" appearance="fill">
-      <mat-label>Tags</mat-label>
-      <mat-chip-list #chipList aria-label="Fruit selection">
-        <mat-chip *ngFor="let fruit of fruits" (removed)="remove(fruit)">
-          {{fruit.name}}
-          <button matChipRemove>
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-chip>
-        <input placeholder="New tag..."
-               [matChipInputFor]="chipList"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               [matChipInputAddOnBlur]="addOnBlur"
-               (matChipInputTokenEnd)="add($event)">
-      </mat-chip-list>
-    </mat-form-field>
   </form>
 </div>

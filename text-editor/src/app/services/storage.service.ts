@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Note } from './../models/note.model';
 import { BehaviorSubject } from 'rxjs';
+import { Tag } from '../models/tag.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,9 +17,9 @@ export class StorageService {
     return storage ? JSON.parse(storage) : this.notes
   }
 
-  public set(text: string): void {
+  public set(text: string, tags: Tag[]): void {
       const data = this.get();
-      const newNote: Note = new Note(data.length.toString(), text)
+      const newNote: Note = new Note(data.length.toString(), text, tags)
       data.push(newNote);
       localStorage.setItem('notes', JSON.stringify(data));
       this.data$.next(this.get());
@@ -28,7 +29,7 @@ export class StorageService {
     const data = this.get();
     const index = data.findIndex((item: Note) => item.id === id);
     data[index].text = text;
-    localStorage.clear();
+    localStorage.setItem('notes', '[]');
     localStorage.setItem('notes', JSON.stringify(data));
     this.data$.next(this.get());
   }
