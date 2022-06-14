@@ -1,0 +1,19 @@
+<div class="note">
+  <h4 class="note__title"> New Note </h4>
+  <form class="note__form" [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Note</mat-label>
+      <input
+        formControlName="text"
+        matInput
+        placeholder="Write smth..."
+        type="text"
+      />
+    </mat-form-field>
+    <div class="form-group">
+      <button type="submit" mat-button>
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

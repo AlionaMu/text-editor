@@ -1,0 +1,24 @@
+<div class="note-card">
+  <div *ngIf="!isEditMode" class="note-card__title">
+    {{ note.text }}
+  </div>
+  <input
+  *ngIf="isEditMode"
+  matInput
+  type="text"
+  [(ngModel)]="note.text"
+  [coloredTag]="note.text"
+  #input
+  />
+  <div class="note-card__tag-list">
+    <mat-chip *ngFor="let tag of note.tags" class="note-card__tag">
+      {{tag.name}}
+    </mat-chip>
+  </div>
+  <button mat-button (click)="switchClick(note.id, note.text)">
+    {{ buttonTitle }}
+  </button>
+  <button mat-button (click)="deleteNote(note.id)">
+    delete
+  </button>
+</div>
