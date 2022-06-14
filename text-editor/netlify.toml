@@ -1,7 +1,6 @@
 [build]
-  command = "npm run build:prod"
-  publish = "dist"
-
+  publish = "dist/text-editor"
+  command = "ng build --prod"
 [[redirects]]
   from = "/*"
   to = "/index.html"
